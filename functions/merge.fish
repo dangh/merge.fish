@@ -34,6 +34,7 @@ function merge --description 'merge directories with rsync'
       rsync $rsync_argv --dry-run $src $rsync_dest
     else
       rsync $rsync_argv $src $rsync_dest
+      find $src -type d -empty -delete
     end
   end
 end
