@@ -30,10 +30,9 @@ function merge --description 'merge directories with rsync'
     set_color green
     printf rsync
     for arg in $rsync_argv $src $rsync_dest
-      printf ' '
-      printf $arg | string escape
+      printf ' %s' (string escape -- \\$arg | string sub --start 3)
     end
-    print \n
+    printf \n
     set_color normal
     if set --query dryrun
       rsync $rsync_argv --dry-run $src $rsync_dest
