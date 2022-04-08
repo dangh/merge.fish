@@ -1,6 +1,6 @@
 function merge --description "merge directories with rsync"
   set --function dryrun "--dry-run"
-  if isatty stdin
+  if not isatty stdin
     read --local answer
     if test "$anwser" = "y"
       set --erase dryrun
