@@ -28,7 +28,11 @@ function merge --description 'merge directories with rsync'
   set --erase rsync_dirs[-1]
   for src in $rsync_dirs
     set_color green
-    echo rsync $rsync_argv $src $rsync_dest
+    for arg in rsync $rsync_argv $src $rsync_dest
+      printf "$arg" | string escape
+      print " "
+    end
+    print \n
     set_color normal
     if set --query dryrun
       rsync $rsync_argv --dry-run $src $rsync_dest
