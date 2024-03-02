@@ -1,4 +1,6 @@
 function merge -d 'merge directories with rsync'
+  argparse 'f/force' -- $argv
+
   set -f dryrun
   if not isatty stdin
     read -l answer
@@ -22,8 +24,8 @@ function merge -d 'merge directories with rsync'
     echo no src/dest dirs. you moron
     return
   end
-  set -a rsync_argv --archive --verbose --remove-source-files --ignore-existing --progress
-  set -q dryrun
+  set -a rsync_argv --archive --verbose --remove-source-files --progress
+  set -q _flag_force || set -a rsync_argv --ignore-existing
   set -f rsync_dest $rsync_dirs[-1]
   set -e rsync_dirs[-1]
   for src in $rsync_dirs
